@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2021/07/10 15:14:58 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/14 16:41:31 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	init_pipex(t_pipe *pipex)
 {
 	pipex->path = NULL;
-	pipex->cmd = NULL;
+	pipex->token = NULL;
+	pipex->cmds = NULL;
 }
 
 int main(int argc, char **argv)

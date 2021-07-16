@@ -3,16 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   clear_memory.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:02:57 by user42            #+#    #+#             */
-/*   Updated: 2021/07/10 15:37:46 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/15 14:18:17 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/pipex.h"
 
-void	free_cmd_list(t_token **lst)
+void	free_cmd_list(t_cmd **lst)
+{
+	t_cmd		*tmp;
+
+	if (!*lst)
+		return ;
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		free_split((*lst)->args);
+		free((*lst));
+		(*lst) = NULL;
+		*lst = tmp;
+	}
+	*lst = NULL;	
+}
+
+void	free_token_list(t_token **lst)
 {
 	t_token		*tmp;
 
@@ -29,25 +46,28 @@ void	free_cmd_list(t_token **lst)
 	*lst = NULL;
 }
 
-void	free_cmd_tab(t_pipe *pipex)
+void	free_token_tab(t_pipe *pipex)
 {
 	int	i;
 
 	i = -1;
-	while (pipex->cmd[++i])
+	while (pipex->token[++i])
 	{
-		free_cmd_list(&pipex->cmd[i]);
-		free(pipex->cmd[i]);
-		pipex->cmd[i] = NULL;
+		free_token_list(&pipex->token[i]);
+		free(pipex->token[i]);
+		pipex->token[i] = NULL;
 	}
-	free(pipex->cmd);
-	pipex->cmd = NULL;
+	free(pipex->token);
+	pipex->token = NULL;
 }
 
 void	clear_memory(t_pipe *pipex)
 {
 	if (pipex->path)
 		ft_lstclear(&pipex->path, del);
-	if (pipex->cmd)
-		free_cmd_tab(pipex);
+	if (pipex->token)
+		free_token_tab(pipex);
+	if (pipex->cmds)
+		free_cmd_list(&pipex->cmds);
+	// exit ;
 }

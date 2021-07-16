@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calloc_pipex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 11:00:17 by user42            #+#    #+#             */
-/*   Updated: 2021/07/10 11:01:31 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/16 11:33:21 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*ft_calloc_pipex(t_pipe *pipex, size_t count, size_t size)
 
 	ptr = malloc(count * size);
 	if (!(ptr))
-		error_quit(pipex, 0);
+		error_quit(pipex, NULL, 0);
 	nb_bytes = count * size;
 	while (nb_bytes)
 	{

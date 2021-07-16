@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:10:43 by user42            #+#    #+#             */
-/*   Updated: 2021/07/10 14:44:39 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/15 14:34:01 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,42 @@ void	print_token_list(t_token *list)
 	{
 		write(1, (char *)list->word, ft_strlen((char *)list->word));
 		write(1, "\n", 1);
+		dprintf(1, "type = %d  redir = %d\n", list->type, list->redir);
 		list = list->next;
 	}
 }
 
-void	print_cmd_tab(t_token **cmd_tab)
+void	print_token_tab(t_token **token_tab)
 {
 	int	i;
 
 	i = -1;
-	while (cmd_tab[++i])
+	while (token_tab[++i])
 	{
 		ft_putstr_fd("-------------\n", 1);
-		print_token_list(cmd_tab[i]);
+		print_token_list(token_tab[i]);
 	}
 }
+
+void	print_str_tab(char **str_tab)
+{
+	int	i;
+
+	i = -1;
+	write(1, "--------------------\n", 22);
+	while (str_tab[++i])
+	{
+		ft_putstr_fd(str_tab[i], 1);
+		write(1, "\n", 1);
+	}
+}
+
+void	print_cmds_list(t_cmd *cmds)
+{
+	while (cmds)
+	{
+		print_str_tab(cmds->args);
+		cmds = cmds->next;
+	}
+}
+

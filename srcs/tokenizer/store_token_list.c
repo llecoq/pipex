@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   store_cmd_list.c                                   :+:      :+:    :+:   */
+/*   store_token_list.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 14:42:31 by user42            #+#    #+#             */
-/*   Updated: 2021/07/11 17:14:43 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/16 13:25:52 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ t_token	*new_token(char **content, int type, int redir)
 		return (NULL);
 	new_elem->type = type;
 	new_elem->word = ft_strdup(*content);
-	new_elem->stop_value = NULL;
 	new_elem->redir = redir;
+	new_elem->cmd = 0;
+	new_elem->fd = -1;
 	new_elem->next = NULL;
 	return (new_elem);
 }
 
-void	addback_cmd(t_token **list, t_token *new)
+void	addback_token(t_token **list, t_token *new)
 {
 	if (*list)
 		last_token(*list)->next = new;
