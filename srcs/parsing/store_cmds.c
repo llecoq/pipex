@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:42:08 by llecoq            #+#    #+#             */
-/*   Updated: 2021/07/16 13:38:56 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/07/18 12:18:36 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ void	store_cmds(t_pipe *pipex, t_token **token_list)
 				splitted_token = ft_split(token_list[i]->word, ' ');
 				addback_cmd(&pipex->cmds, new_cmd(splitted_token));
 			}
+			else if (token_list[i]->type == IS_CMD
+				&& head->cmd == IS_NOT_VALID)
+				addback_cmd(&pipex->cmds, new_cmd(NULL));
 			token_list[i] = token_list[i]->next;
 		}
 		token_list[i] = head;

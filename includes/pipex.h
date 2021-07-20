@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:16:16 by user42            #+#    #+#             */
-/*   Updated: 2021/07/16 13:25:19 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/07/18 12:14:20 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	split_words(t_pipe *pipex, char *argv, char ***splitted_words);
 void	split_and_store_args(char **argv);
 void	store_cmds(t_pipe *pipex, t_token **token_list);
 void	set_redirection(t_pipe *pipex, t_token ***token_tab);
+void	create_pipe(t_pipe *pipex, t_cmd *cmds);
 
 /* UTILS */
 void	clear_memory(t_pipe *pipex);
@@ -99,6 +100,9 @@ void	store_bonus_tokens(t_pipe *pipex, char **argv);
 void	tokenizer(t_pipe *pipex, char **argv, int parse);
 void	addback_token(t_token **list, t_token *new);
 t_token	*new_token(char **content, int type, int redir);
+
+/* EXECUTOR */
+void	executor(t_pipe *pipex);
 
 #endif
 

@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/08 12:13:07 by user42            #+#    #+#              #
-#    Updated: 2021/07/16 12:31:35 by llecoq           ###   ########.fr        #
+#    Updated: 2021/07/16 15:04:01 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ CFLAGS	= -Wall -Wextra -Werror -g3 -fsanitize=address
 DIR		=	.objs/parsing\
 			.objs/tokenizer\
 			.objs/utils\
+			.objs/executor\
 
 $(OBJSPATH)%.o:		$(SRCSPATH)%.c includes/pipex.h libft/libft.h libft/libft.a
 			@mkdir -p $(OBJ_PATH) $(DIR)

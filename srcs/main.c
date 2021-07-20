@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2021/07/14 16:41:31 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/07/18 12:21:46 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ int main(int argc, char **argv)
 		return (0);
 	init_pipex(&pipex);
 	parse(&pipex, argv, argc);
-	// executor(pipex);
+	// executor(&pipex);
 	clear_memory(&pipex);
 }
