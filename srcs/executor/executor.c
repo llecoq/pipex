@@ -3,16 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:04:08 by llecoq            #+#    #+#             */
-/*   Updated: 2021/07/18 12:21:42 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/07/21 12:15:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/pipex.h"
 
-// void	executor(t_pipe *pipex)
-// {
-	
-// }
+ void	executor(t_pipe *pipex)
+ {
+	int		i;
+	pid_t	pid[pipex->];
+
+	i = -1;
+	while ()
+ }
