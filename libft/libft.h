@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonnel <abonnel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 15:19:21 by abonnel           #+#    #+#             */
-/*   Updated: 2021/06/18 15:45:32 by abonnel          ###   ########.fr       */
+/*   Updated: 2021/07/26 13:33:33 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include "gnl/get_next_line.h"
 
 typedef struct s_list
 {
@@ -70,7 +71,7 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 int				hexa_len(unsigned long long nb);
 char			*ft_itoabase(unsigned long long nb, char *base);
 void			free_split(char **split);
-void			free_set_null(void **ptr);
+// void			free_set_null(void **ptr);
 int				ft_malloc(void *ptr, int size);
 
 #endif

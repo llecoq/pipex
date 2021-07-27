@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   store_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:42:08 by llecoq            #+#    #+#             */
-/*   Updated: 2021/07/21 11:33:51 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/27 16:50:50 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,15 @@ t_cmd	*last_cmd(t_cmd *lst)
 	return (lst);
 }
 
-t_cmd	*new_cmd(char **content)
+t_cmd	*new_cmd(t_pipe *pipex)
 {
 	t_cmd	*new_elem;
 
 	new_elem = malloc(sizeof(t_cmd));
 	if (!new_elem)
-		return (NULL);
-	new_elem->args = content;
+		error_quit(pipex, NULL, 0);
+	new_elem->token_list = NULL;
+	new_elem->argv = NULL;
 	new_elem->next = NULL;
 	new_elem->previous = NULL;
 	return (new_elem);
@@ -48,29 +49,14 @@ void	addback_cmd(t_cmd **list, t_cmd *new)
 		*list = new;
 }
 
-void	store_cmds(t_pipe *pipex, t_token **token_list)
+void	create_empty_cmds_list(t_pipe *pipex, int nb_of_cmds)
 {
-	t_token	*head;
-	char	**splitted_token;
-	int		i;
+	int	i;
 
-	i = -1;
-	while (token_list[++i])
+	i = 0;
+	while (i < nb_of_cmds)
 	{
-		head = token_list[i];
-		while (token_list[i])
-		{
-			if (token_list[i]->type == IS_CMD
-				&& head->cmd == IS_VALID)
-			{
-				splitted_token = ft_split(token_list[i]->word, ' ');
-				addback_cmd(&pipex->cmds, new_cmd(splitted_token));
-			}
-			else if (token_list[i]->type == IS_CMD
-				&& head->cmd == IS_NOT_VALID)
-				addback_cmd(&pipex->cmds, new_cmd(NULL));
-			token_list[i] = token_list[i]->next;
-		}
-		token_list[i] = head;
+		addback_cmd(&pipex->cmds, new_cmd(pipex));
+		i++;
 	}
 }

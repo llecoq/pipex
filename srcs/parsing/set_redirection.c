@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_redirection.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:04:12 by llecoq            #+#    #+#             */
-/*   Updated: 2021/07/21 12:06:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/27 17:11:47 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	set_redirection(t_pipe *pipex, t_token ***token_tab)
 		{
 			if ((*token_tab)[i]->redir == INPUT_REDIR
 				&& input_redir(pipex, &(*token_tab)[i]) == EXISTENT)
-				head->cmd = IS_VALID;
 			if ((*token_tab)[i]->redir == OUTPUT_REDIR
 				&& output_redir(pipex, &(*token_tab)[i]) == IS_VALID)
 				head->cmd = IS_VALID;

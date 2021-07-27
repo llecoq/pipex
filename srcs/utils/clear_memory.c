@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:02:57 by user42            #+#    #+#             */
-/*   Updated: 2021/07/15 14:18:17 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/07/27 11:21:23 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	clear_memory(t_pipe *pipex)
 		ft_lstclear(&pipex->path, del);
 	if (pipex->token)
 		free_token_tab(pipex);
-	if (pipex->cmds)
-		free_cmd_list(&pipex->cmds);
-	// exit ;
+	// if (pipex->cmds)
+	// 	free_cmd_list(&pipex->cmds);
 }

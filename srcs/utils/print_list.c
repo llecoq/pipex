@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:10:43 by user42            #+#    #+#             */
-/*   Updated: 2021/07/21 11:46:51 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/27 15:39:20 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	print_cmds_list(t_cmd *cmds)
 	{
 		if (cmds->args)
 			print_str_tab(cmds->args);
+		// dprintf(1, "%p\n", cmds->pipefd);
 		cmds = cmds->next;
 	}
 }
