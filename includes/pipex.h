@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:16:16 by user42            #+#    #+#             */
-/*   Updated: 2021/07/27 17:29:14 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/07/28 11:50:16 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ enum	e_parse
 
 enum	e_file
 {
-	EXISTENT,
-	NONEXISTENT,
 	IS_VALID,
 	IS_NOT_VALID,
+	EXISTENT,
+	NONEXISTENT,
 };
 
 typedef struct	s_pipe
@@ -110,7 +110,7 @@ t_token	*new_token(char **content, int type, int redir);
 
 /* EXECUTOR */
 void	evaluator(t_pipe *pipex, t_cmd *cmds, char **envp, int nb_of_cmds);
-int		set_redirection(t_pipe *pipex, t_cmd *cmd, t_token *token_list);
+void		create_redirection(t_pipe *pipex, t_cmd *cmd, t_token *token_list);
 
 #endif
 

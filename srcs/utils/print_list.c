@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:10:43 by user42            #+#    #+#             */
-/*   Updated: 2021/07/27 15:39:20 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/07/28 11:09:23 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void	print_cmds_list(t_cmd *cmds)
 {
 	while (cmds)
 	{
-		if (cmds->args)
-			print_str_tab(cmds->args);
+		if (cmds->argv)
+			print_str_tab(cmds->argv);
 		// dprintf(1, "%p\n", cmds->pipefd);
 		cmds = cmds->next;
 	}

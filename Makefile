@@ -6,12 +6,13 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/08 12:13:07 by user42            #+#    #+#              #
-#    Updated: 2021/07/27 14:26:29 by llecoq           ###   ########.fr        #
+#    Updated: 2021/07/28 11:06:22 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS_FILES	=	main.c\
 				executor/executor.c\
+				executor/create_redirection.c\
 				tokenizer/store_token_list.c\
 				tokenizer/tokenizer.c\
 				tokenizer/store_tokens.c\

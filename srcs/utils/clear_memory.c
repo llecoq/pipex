@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:02:57 by user42            #+#    #+#             */
-/*   Updated: 2021/07/27 11:21:23 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/07/28 11:09:07 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_cmd_list(t_cmd **lst)
 	while (*lst)
 	{
 		tmp = (*lst)->next;
-		free_split((*lst)->args);
+		free_split((*lst)->argv);
 		free((*lst));
 		(*lst) = NULL;
 		*lst = tmp;
