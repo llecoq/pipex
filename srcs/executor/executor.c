@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:04:08 by llecoq            #+#    #+#             */
-/*   Updated: 2021/07/28 12:16:00 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/07/28 12:55:56 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,24 @@ static void	execution_child_process(t_pipe *pipex, t_cmd *cmd, char **envp)
 	char	**argv;
 	t_list	*path;
 
-	path = pipex->path;
 	create_redirection(pipex, cmd, cmd->token_list);
 	create_argv(cmd->token_list, &argv);
+	path = pipex->path;
+	if (path == NULL)
+	{
+		errno = ENOENT;
+		error_quit(pipex, *argv, 0);
+	}
 	while (path)
 	{
-		file = ft_strjoin(path, *argv);
+		file = ft_strjoin(path->content, *argv);
 		execve(file, argv, envp);
 		free (file);
 		path = path->next;
 	}
-	error_quit(pipex, *argv, 0);
+	close(cmd->pipefd[0]);
+	close(cmd->pipefd[1]);
+	error_quit(pipex, *argv, CMD_NOT_FOUND);
 }
 
 void	evaluator(t_pipe *pipex, t_cmd *cmd, char **envp, int nb_of_cmds)

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:16:16 by user42            #+#    #+#             */
-/*   Updated: 2021/07/28 11:50:16 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/07/28 12:22:04 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ enum	e_file
 	IS_NOT_VALID,
 	EXISTENT,
 	NONEXISTENT,
+};
+
+enum	e_error
+{
+	CMD_NOT_FOUND = 127,
 };
 
 typedef struct	s_pipe
