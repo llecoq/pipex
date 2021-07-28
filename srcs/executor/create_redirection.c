@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 17:13:22 by llecoq            #+#    #+#             */
-/*   Updated: 2021/07/28 11:52:46 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/07/28 18:37:01 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,8 @@ void	create_redirection(t_pipe *pipex, t_cmd *cmd, t_token *token_list)
 			error_quit(pipex, file_name, 0);
 		token_list = token_list->next;
 	}
+	close(cmd->pipefd[0]);
+	dup2(cmd->pipefd[1], 1); // dup2 close les fd rediriges
+	// utiliser dup a la place peut etre ?
+	close(cmd->pipefd[1]);
 }

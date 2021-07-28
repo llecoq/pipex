@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:04:08 by llecoq            #+#    #+#             */
-/*   Updated: 2021/07/28 12:55:56 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/07/28 18:24:34 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,41 @@ static void	create_argv(t_token *token_list, char ***argv)
 	}
 }
 
-static void	execution_child_process(t_pipe *pipex, t_cmd *cmd, char **envp)
+static void	execute_file(t_list **path_list, char **argv, char **envp)
 {
 	char	*file;
-	char	**argv;
-	t_list	*path;
+	
+	file = ft_strjoin((*path_list)->content, *argv);
+	execve(file, argv, envp);
+	free (file);
+	(*path_list) = (*path_list)->next;
+}
 
+// static void	close_unused_fds(t_cmd *cmd, t_token *token_list)
+// {
+// 	int	fd_nb;
+
+// 	fd_nb = 0;
+// 	if (token_list->redir == INPUT_REDIR)
+// 		fd_nb = 1;
+// }
+
+static void	execution_child_process(t_pipe *pipex, t_cmd *cmd, char **envp)
+{
+	char	**argv;
+	t_list	*path_list;
+
+	// close_unused_fds(cmd, cmd->token_list);
 	create_redirection(pipex, cmd, cmd->token_list);
 	create_argv(cmd->token_list, &argv);
-	path = pipex->path;
-	if (path == NULL)
+	path_list = pipex->path;
+	if (path_list == NULL)
 	{
 		errno = ENOENT;
 		error_quit(pipex, *argv, 0);
 	}
-	while (path)
-	{
-		file = ft_strjoin(path->content, *argv);
-		execve(file, argv, envp);
-		free (file);
-		path = path->next;
-	}
-	close(cmd->pipefd[0]);
+	while (path_list)
+		execute_file(&path_list, argv, envp);
 	close(cmd->pipefd[1]);
 	error_quit(pipex, *argv, CMD_NOT_FOUND);
 }
