@@ -6,22 +6,36 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:02:19 by user42            #+#    #+#             */
-/*   Updated: 2021/07/30 10:26:32 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/07/30 12:35:00 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/pipex.h"
 
-void	create_pipe(t_pipe *pipex, t_cmd *cmds)
+void	create_pipe(t_pipe *pipex, t_cmd *cmd)
 {
-	while (cmds)
+	while (cmd)
 	{
-		if (pipe(cmds->pipefd) == -1)
+		if (pipe(cmd->pipefd) == -1)
 			error_quit(pipex, NULL, 0);
-		cmds->redir.into_file = NONEXISTENT;
-		cmds->redir.into_stdin = NONEXISTENT;
-		cmds->redir.from_file = NONEXISTENT;
-		cmds = cmds->next;
+		cmd->redir.into_file = NONEXISTENT;
+		cmd->redir.into_stdin = NONEXISTENT;
+		cmd->redir.from_file = NONEXISTENT;
+		cmd = cmd->next;
+	}
+}
+
+void	connect_pipes(t_cmd *cmd)
+{
+	while (cmd)
+	{
+		if (cmd->next)
+		{
+			close(cmd->next->pipefd[0]);
+			cmd->next->pipefd[0] = cmd->pipefd[1];
+		}
+// dprintf(1, "pipefd[0] = %d \tpipefd[1] = %d\n", cmd->pipefd[0], cmd->pipefd[1]);
+		cmd = cmd->next;
 	}
 }
 
@@ -40,6 +54,6 @@ LIMITER cmd cmd1 file", -1);
 // CHECK SI HEREDOC, A CREER AVANT L'EXECUTOR
 	create_empty_cmds_list(pipex, pipex->cmds_nb);
 	create_pipe(pipex, pipex->cmds);
-
+	connect_pipes(pipex->cmds);
 	// print_cmds_list(pipex->cmds);
 }

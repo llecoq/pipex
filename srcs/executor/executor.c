@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:04:08 by llecoq            #+#    #+#             */
-/*   Updated: 2021/07/30 10:18:39 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/07/30 12:20:20 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,41 @@ static void	execute_file(t_list **path_list, char **argv, char **envp)
 	(*path_list) = (*path_list)->next;
 }
 
-// static void	dup_redirection(t_pipe *pipex, t_cmd *cmd, t_token *token_list)
-// {	
+// proteger dup +  gerer sortie erreur 2 + close fd
+// static void	dup_output_redirection(t_pipe *pipex, t_cmd *cmd)
+// {
 // 	(void)pipex;
-// 	(void)token_list;
-
-// 	if (cmd->redir.file)
-// 		dup2(cmd->pipefd[1], 1);
-// 	else if (cmd->redir.out)
-// 		dup2(cmd->pipefd[0], 0);
-// 	close(cmd->pipefd[0]);
+// 	if (cmd->redir.into_file == EXISTENT)
+// 	{
+// 		cmd->pipefd[1] = dup(1);
+// 		// dup2(cmd->pipefd[1], 1);
+// 	}
+// 	else if (cmd->redir.into_stdin == EXISTENT)	
+// 	{
+// 		// dup2(cmd->pipefd[1], 0);
+// 	}
 // 	close(cmd->pipefd[1]);
 // }
+
+static void	dup_output_redirection(t_pipe *pipex, t_cmd *cmd)
+{
+	(void)pipex;
+	if (cmd->redir.into_file == EXISTENT)
+		dup2(cmd->pipefd[1], 1);
+	else if (cmd->redir.into_stdin == EXISTENT)	
+		dup2(cmd->pipefd[1], 0);
+	close(cmd->pipefd[1]);
+}
+
+static void	dup_input_redirection(t_pipe *pipex, t_cmd *cmd)
+{
+	(void)pipex;
+	if (cmd->redir.from_file == EXISTENT)
+	{
+	dup2(cmd->pipefd[0], 0);
+	}
+	close(cmd->pipefd[0]);
+}
 
 static void	execution_child_process(t_pipe *pipex, t_cmd *cmd, char **envp)
 {
@@ -55,7 +78,8 @@ static void	execution_child_process(t_pipe *pipex, t_cmd *cmd, char **envp)
 
 	// close_unused_fds(cmd, cmd->token_list);
 	create_redirection(pipex, cmd, cmd->token_list);
-	dup_redirection(pipex, cmd, cmd->token_list);
+	dup_input_redirection(pipex, cmd);
+	dup_output_redirection(pipex, cmd);
 	create_argv(cmd->token_list, &argv);
 	path_list = pipex->path;
 	if (path_list == NULL)

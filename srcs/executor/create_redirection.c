@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 17:13:22 by llecoq            #+#    #+#             */
-/*   Updated: 2021/07/30 10:52:07 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/07/30 12:20:40 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ static void	search_for_output_redir(t_token *token_list, t_cmd *cmd)
 	{
 		if (token_list->redir == APPEND || token_list->redir == OUTPUT_REDIR)
 		{
-			cmd->redir.into_file == EXISTENT;
+			cmd->redir.into_file = EXISTENT;
 			return ;
 		}
 		token_list = token_list->next;
 	}
 	if (token_list->redir == PIPE)
-		cmd->redir.into_stdin == EXISTENT;
+		cmd->redir.into_stdin = EXISTENT;
 }
 
 static void	search_for_input_redir(t_token *token_list, t_cmd *cmd)
@@ -81,11 +81,13 @@ static void	search_for_input_redir(t_token *token_list, t_cmd *cmd)
 	}
 }
 
-static void	connect_to_next_pipe(t_cmd *cmd)
-{
-	if (cmd->next)
-		cmd->next->pipefd[0] = cmd->pipefd[1];
-}
+// static void	connect_to_next_pipe(t_cmd *cmd)
+// {
+// 	if (cmd->next)
+// 		cmd->next->pipefd[0] = cmd->pipefd[1];
+// 	// if (cmd->previous)
+// 	// 	cmd->previous->pipefd[1] = cmd->pipefd[0];
+// }
 
 void	create_redirection(t_pipe *pipex, t_cmd *cmd, t_token *token_list)
 {
@@ -106,5 +108,5 @@ void	create_redirection(t_pipe *pipex, t_cmd *cmd, t_token *token_list)
 			error_quit(pipex, file_name, 0);
 		token_list = token_list->next;
 	}
-	connect_to_next_pipe(cmd);
+	// connect_to_next_pipe(cmd);
 }
