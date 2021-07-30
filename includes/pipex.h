@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:16:16 by user42            #+#    #+#             */
-/*   Updated: 2021/07/30 10:18:16 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/07/30 12:54:33 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,6 @@ enum	e_error
 	CMD_NOT_FOUND = 127,
 };
 
-typedef struct	s_redir
-{
-	int				into_file;
-	int				into_stdin;
-	int				from_file;
-}				t_redir;
-
 typedef struct	s_pipe
 {
 	t_list			*path;
@@ -74,6 +67,13 @@ typedef struct	s_pipe
 	struct s_cmd	*cmds;
 	int				cmds_nb;
 }				t_pipe;
+
+typedef struct	s_redir
+{
+	int				into_file;
+	int				into_stdin;
+	int				from_file;
+}				t_redir;
 
 typedef struct	s_cmd
 {

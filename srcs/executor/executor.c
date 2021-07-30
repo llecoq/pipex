@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:04:08 by llecoq            #+#    #+#             */
-/*   Updated: 2021/07/30 12:20:20 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/07/30 16:28:22 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,23 +51,24 @@ static void	execute_file(t_list **path_list, char **argv, char **envp)
 // 	close(cmd->pipefd[1]);
 // }
 
-static void	dup_output_redirection(t_pipe *pipex, t_cmd *cmd)
+void	dup_output_redirection(t_pipe *pipex, t_cmd *cmd)
 {
 	(void)pipex;
 	if (cmd->redir.into_file == EXISTENT)
 		dup2(cmd->pipefd[1], 1);
-	else if (cmd->redir.into_stdin == EXISTENT)	
-		dup2(cmd->pipefd[1], 0);
+	else if (cmd->redir.into_stdin == EXISTENT)
+	{
+		dup2(cmd->pipefd[1], cmd->next->pipefd[0]);
+		close(cmd->next->pipefd[0]);
+	}
 	close(cmd->pipefd[1]);
 }
 
-static void	dup_input_redirection(t_pipe *pipex, t_cmd *cmd)
+void	dup_input_redirection(t_pipe *pipex, t_cmd *cmd)
 {
 	(void)pipex;
-	if (cmd->redir.from_file == EXISTENT)
-	{
+	// if (cmd->redir.from_file == EXISTENT)
 	dup2(cmd->pipefd[0], 0);
-	}
 	close(cmd->pipefd[0]);
 }
 

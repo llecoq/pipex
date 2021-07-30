@@ -6,13 +6,13 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:02:19 by user42            #+#    #+#             */
-/*   Updated: 2021/07/30 12:35:00 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/07/30 14:47:58 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/pipex.h"
 
-void	create_pipe(t_pipe *pipex, t_cmd *cmd)
+void	create_pipes(t_pipe *pipex, t_cmd *cmd)
 {
 	while (cmd)
 	{
@@ -29,12 +29,13 @@ void	connect_pipes(t_cmd *cmd)
 {
 	while (cmd)
 	{
+		// cmd->pipefd[1] = 1;
 		if (cmd->next)
 		{
 			close(cmd->next->pipefd[0]);
 			cmd->next->pipefd[0] = cmd->pipefd[1];
 		}
-// dprintf(1, "pipefd[0] = %d \tpipefd[1] = %d\n", cmd->pipefd[0], cmd->pipefd[1]);
+// dprintf(1, "pipefd[0] = %p\tpipefd[1] = %p\n", &cmd->pipefd[0], &cmd->pipefd[1]);
 		cmd = cmd->next;
 	}
 }
@@ -53,7 +54,7 @@ LIMITER cmd cmd1 file", -1);
 	tokenizer(pipex, argv, parse);
 // CHECK SI HEREDOC, A CREER AVANT L'EXECUTOR
 	create_empty_cmds_list(pipex, pipex->cmds_nb);
-	create_pipe(pipex, pipex->cmds);
-	connect_pipes(pipex->cmds);
+	create_pipes(pipex, pipex->cmds);
+	// connect_pipes(pipex->cmds);
 	// print_cmds_list(pipex->cmds);
 }
