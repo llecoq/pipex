@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:16:16 by user42            #+#    #+#             */
-/*   Updated: 2021/07/28 18:21:59 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/07/30 10:18:16 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,13 @@ enum	e_error
 	CMD_NOT_FOUND = 127,
 };
 
+typedef struct	s_redir
+{
+	int				into_file;
+	int				into_stdin;
+	int				from_file;
+}				t_redir;
+
 typedef struct	s_pipe
 {
 	t_list			*path;
@@ -72,6 +79,7 @@ typedef struct	s_cmd
 {
 	char			**argv;
 	int				pipefd[2];
+	struct s_redir	redir;
 	struct s_token	*token_list;
 	struct s_cmd	*previous;
 	struct s_cmd	*next;
@@ -86,13 +94,14 @@ typedef struct	s_token
 	struct s_token	*previous;
 }				t_token;
 
+
+
 /* PARSING */
 void	parse(t_pipe *pipex, char **argv, int argc);
 void	store_path(t_pipe *pipex);
 void	split_words(t_pipe *pipex, char *argv, char ***splitted_words);
 void	split_and_store_args(char **argv);
 void	create_empty_cmds_list(t_pipe *pipex, int nb_of_cmds);
-// void	set_redirection(t_pipe *pipex, t_token ***token_tab);
 void	create_pipe(t_pipe *pipex, t_cmd *cmds);
 
 /* UTILS */

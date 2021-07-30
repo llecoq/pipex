@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:02:19 by user42            #+#    #+#             */
-/*   Updated: 2021/07/28 14:21:25 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/07/30 10:19:34 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ void	create_pipe(t_pipe *pipex, t_cmd *cmds)
 	{
 		if (pipe(cmds->pipefd) == -1)
 			error_quit(pipex, NULL, 0);
+		cmds->redir.into_file = 0;
+		cmds->redir.into_stdin = 0;
+		cmds->redir.from_file = 0;
 		cmds = cmds->next;
 	}
 }
