@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:16:16 by user42            #+#    #+#             */
-/*   Updated: 2021/07/30 12:54:33 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/09 16:47:30 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct	s_redir
 {
 	int				into_file;
 	int				into_stdin;
-	int				from_file;
+	char			*from_file;
 }				t_redir;
 
 typedef struct	s_cmd

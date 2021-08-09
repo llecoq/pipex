@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 17:13:22 by llecoq            #+#    #+#             */
-/*   Updated: 2021/07/30 16:09:28 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/09 18:59:03 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 int	create_file(t_cmd *cmd, char *file_name, int redir_type)
 {
 	if (redir_type == APPEND)
-		cmd->pipefd[1] = open(file_name, O_CREAT | O_RDWR | O_APPEND, 0644);
+		cmd->redir.into_file
+			= open(file_name, O_CREAT | O_RDWR | O_APPEND, 0644);
 	else if (redir_type == OUTPUT_REDIR)
-		cmd->pipefd[1] = open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	if (cmd->pipefd[1] == -1)
+		cmd->redir.into_file
+			= open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (cmd->redir.into_file == -1)
 	{
-		close(cmd->pipefd[1]);
-		close(cmd->pipefd[0]);
+		close(cmd->redir.into_file);
 		if (errno == EBADF)
 			errno = ENOENT;
 		return (errno);
@@ -47,7 +48,9 @@ int	check_for_existing_file(t_cmd *cmd, char *file_name)
 			close(fd);
 			return (errno);
 		}
-		cmd->pipefd[0] = fd; // pas sur
+		close(fd);
+		cmd->redir.from_file = file_name; // ne marche pas pour heredoc
+		// cmd->pipefd[0] = fd; // pas sur
 		return (IS_VALID);
 	}
 	return (errno);
@@ -63,8 +66,8 @@ void	search_for_output_redir(t_token *token_list, t_cmd *cmd)
 
 void	search_for_input_redir(t_token *token_list, t_cmd *cmd)
 {
-	if (token_list->type == HEREDOC || token_list->redir == INPUT_REDIR)
-		cmd->redir.from_file = EXISTENT;
+	if (token_list->type == HEREDOC)
+		cmd->redir.from_file = "heredoc";
 }
 
 // static void	connect_to_next_pipe(t_cmd *cmd)
@@ -84,7 +87,7 @@ void	create_redirection(t_pipe *pipex, t_cmd *cmd, t_token *token_list)
 	status = IS_VALID;
 	while (token_list)
 	{
-		search_for_input_redir(token_list, cmd);
+		// search_for_input_redir(token_list, cmd);
 		search_for_output_redir(token_list, cmd);
 		file_name = token_list->word;
 		if (token_list->type == IS_FILE && token_list->redir == INPUT_REDIR)

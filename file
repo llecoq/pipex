@@ -1,7 +1,11 @@
-Makefile
-file
-file2
-includes
-libft
-pipex
-srcs
+#    Makefile                                           :+:      :+:    :+:    #
+NAME	= pipex
+RM		= rm -rf
+all:		previous $(NAME)
+$(NAME):	$(OBJS)
+			$(CC) $(CFLAGS) $(OBJS) -Llibft -lft -g -o $(NAME)
+			@$(MAKE) -C ./libft
+			$(RM) $(OBJSPATH)
+			$(MAKE) clean -C ./libft
+			$(RM) $(NAME)
+			$(MAKE) fclean -C ./libft
