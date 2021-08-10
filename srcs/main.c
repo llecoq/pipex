@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2021/07/28 14:21:45 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/10 13:24:45 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	init_pipex(t_pipe *pipex)
 int main(int argc, char **argv, char **envp)
 {
 	t_pipe	pipex;
+	int		child_status;
 	
-	(void)envp;
 	if ((argc < 5 && argc > 2) || argc < 2)
 		error_quit(&pipex, "not enough arguments\nusage :  ./pipex \
 file1 cmd1 cmd2 cmd3 ... cmdn file2", -1);
 	init_pipex(&pipex);
 	parse(&pipex, argv, argc);
-	evaluator(&pipex, pipex.cmds, envp, pipex.cmds_nb);
+	child_status = evaluator(&pipex, pipex.cmds, envp, pipex.cmds_nb);
 	clear_memory(&pipex);
-	return (0);
+	return (child_status);
 }

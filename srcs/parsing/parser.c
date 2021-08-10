@@ -6,18 +6,34 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:02:19 by user42            #+#    #+#             */
-/*   Updated: 2021/08/09 17:54:02 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/10 12:02:14 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/pipex.h"
 
+static void	close_all_pipes(t_cmd *cmd)
+{
+	t_cmd	*previous_cmd;
+
+	previous_cmd = cmd->previous;
+	while (previous_cmd)
+	{
+		close(previous_cmd->pipefd[0]);
+		close(previous_cmd->pipefd[1]);
+		previous_cmd = previous_cmd->previous;
+	}
+}
+
 void	create_pipes(t_pipe *pipex, t_cmd *cmd)
 {
 	while (cmd)
 	{
-		if (pipe(cmd->pipefd) == -1)
+		if (pipe(cmd->pipefd) == FAILED)
+		{
+			close_all_pipes(cmd);
 			error_quit(pipex, NULL, 0);
+		}
 		cmd->redir.into_file = NONEXISTENT;
 		cmd->redir.into_stdin = NONEXISTENT;
 		cmd->redir.from_file = NULL;

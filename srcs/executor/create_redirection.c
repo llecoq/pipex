@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 17:13:22 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/09 18:59:03 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/10 12:02:22 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	create_file(t_cmd *cmd, char *file_name, int redir_type)
 	else if (redir_type == OUTPUT_REDIR)
 		cmd->redir.into_file
 			= open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	if (cmd->redir.into_file == -1)
+	if (cmd->redir.into_file == FAILED)
 	{
 		close(cmd->redir.into_file);
 		if (errno == EBADF)
@@ -42,15 +42,11 @@ int	check_for_existing_file(t_cmd *cmd, char *file_name)
 		ret = read(fd, &buff, 1);
 		if (ret == -1)
 		{
-			// faire fonction close fd ?
-			close(cmd->pipefd[0]);
-			close(cmd->pipefd[1]);
 			close(fd);
 			return (errno);
 		}
 		close(fd);
 		cmd->redir.from_file = file_name; // ne marche pas pour heredoc
-		// cmd->pipefd[0] = fd; // pas sur
 		return (IS_VALID);
 	}
 	return (errno);
@@ -70,14 +66,6 @@ void	search_for_input_redir(t_token *token_list, t_cmd *cmd)
 		cmd->redir.from_file = "heredoc";
 }
 
-// static void	connect_to_next_pipe(t_cmd *cmd)
-// {
-// 	if (cmd->next)
-// 		cmd->next->pipefd[0] = cmd->pipefd[1];
-// 	// if (cmd->previous)
-// 	// 	cmd->previous->pipefd[1] = cmd->pipefd[0];
-// }
-
 void	create_redirection(t_pipe *pipex, t_cmd *cmd, t_token *token_list)
 {
 	int		status;
@@ -87,7 +75,7 @@ void	create_redirection(t_pipe *pipex, t_cmd *cmd, t_token *token_list)
 	status = IS_VALID;
 	while (token_list)
 	{
-		// search_for_input_redir(token_list, cmd);
+		search_for_input_redir(token_list, cmd);
 		search_for_output_redir(token_list, cmd);
 		file_name = token_list->word;
 		if (token_list->type == IS_FILE && token_list->redir == INPUT_REDIR)
@@ -98,5 +86,4 @@ void	create_redirection(t_pipe *pipex, t_cmd *cmd, t_token *token_list)
 			error_quit(pipex, file_name, 0);
 		token_list = token_list->next;
 	}
-	// connect_to_next_pipe(cmd);
 }

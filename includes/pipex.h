@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:16:16 by user42            #+#    #+#             */
-/*   Updated: 2021/08/09 16:47:30 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/10 12:23:13 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <sys/wait.h>
 #include "../libft/libft.h"
 
 enum	e_process
@@ -58,6 +59,7 @@ enum	e_file
 enum	e_error
 {
 	CMD_NOT_FOUND = 127,
+	FAILED = -1,
 };
 
 typedef struct	s_pipe
@@ -123,8 +125,8 @@ void	addback_token(t_token **list, t_token *new);
 t_token	*new_token(char **content, int type, int redir);
 
 /* EXECUTOR */
-void	evaluator(t_pipe *pipex, t_cmd *cmds, char **envp, int nb_of_cmds);
-void		create_redirection(t_pipe *pipex, t_cmd *cmd, t_token *token_list);
+int		evaluator(t_pipe *pipex, t_cmd *cmds, char **envp, int nb_of_cmds);
+void	create_redirection(t_pipe *pipex, t_cmd *cmd, t_token *token_list);
 
 #endif
 

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 18:46:07 by user42            #+#    #+#             */
-/*   Updated: 2021/07/28 14:15:08 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/10 13:40:46 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ void	error_quit(t_pipe *pipex, char *str, int errnum)
 	if (errnum == 0)
 		full_error_msg = join_and_free(full_error_msg, errno_msg);
 	if (errnum == CMD_NOT_FOUND)
+	{
+		errno = CMD_NOT_FOUND;
 		full_error_msg = join_and_free(full_error_msg, "command not found");
+	}
 	full_error_msg = join_and_free(full_error_msg, "\n");
 	ft_putstr_fd(full_error_msg, 2);
 	clear_memory(pipex);
