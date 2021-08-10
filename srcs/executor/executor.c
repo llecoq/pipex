@@ -6,35 +6,35 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:04:08 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/10 13:40:26 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/10 19:37:51 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/pipex.h"
 
-static void	join_argv_with_file_name(char **unsplit_argv, char *file_name)
+static void	join_arg_with_file_name(char **unsplit_arg, char *file_name)
 {
 	char	*tmp;
 
-	tmp = ft_strjoin(*unsplit_argv, " ");
-	free(*unsplit_argv);
-	*unsplit_argv = ft_strjoin(tmp, file_name);
+	tmp = ft_strjoin(*unsplit_arg, " ");
+	free(*unsplit_arg);
+	*unsplit_arg = ft_strjoin(tmp, file_name);
 	free(tmp);
 }
 
 int	create_argv(t_token *token_list, char ***split_argv, char *file_name)
 {
-	char	*unsplit_argv;
+	char	*unsplit_arg;
 
 	while (token_list)
 	{
 		if (token_list->type == IS_CMD)
 		{
-			unsplit_argv = ft_strdup(token_list->word);
+			unsplit_arg = ft_strdup(token_list->word);
 			if (file_name)
-				join_argv_with_file_name(&unsplit_argv, file_name);
-			(*split_argv) = ft_split(unsplit_argv, ' ');
-			free(unsplit_argv);
+				join_arg_with_file_name(&unsplit_arg, file_name);
+			(*split_argv) = ft_split(unsplit_arg, ' ');
+			free(unsplit_arg);
 			return (0);
 		}
 		token_list = token_list->next;
@@ -61,7 +61,6 @@ static void	close_fds_and_exit(t_pipe *pipex, int fd_1, int fd_2)
 	error_quit(pipex, NULL, 0);
 }
 
-// // proteger dup +  gerer sortie erreur 2 + close fd
 void	dup_output_redirection(t_pipe *pipex, t_cmd *cmd)
 {
 	if (cmd->redir.into_stdin == EXISTENT)
@@ -79,6 +78,13 @@ void	dup_output_redirection(t_pipe *pipex, t_cmd *cmd)
 
 void	dup_input_redirection(t_pipe *pipex, t_cmd *cmd)
 {
+	if (cmd->redir.from_heredoc >= EXISTENT)
+	{
+		dup2(cmd->redir.from_heredoc, STDIN_FILENO);
+		close(cmd->redir.from_heredoc);
+		close(cmd->pipefd[0]);
+		return ;
+	}
 	if (dup2(cmd->pipefd[0], STDIN_FILENO) == FAILED)
 	{
 		close(cmd->pipefd[0]);
@@ -141,10 +147,8 @@ static void	execution_child_process(t_pipe *pipex, t_cmd *cmd, char **envp)
 		error_quit(pipex, NULL, 0);
 	if (path_is_unset(pipex, &path_list))
 		error_quit(pipex, *argv, 0);
-	while (path_list)
+	while (path_list != NULL)
 		execute_file(&path_list, argv, envp);
-	close(cmd->pipefd[1]);
-	close(cmd->pipefd[0]);
 	error_quit(pipex, *argv, CMD_NOT_FOUND);
 }
 
@@ -156,10 +160,18 @@ int	wexitstatus(int status)
 	return (((w_int >> 8) & 0x000000ff));
 }
 
+int	last_child_status(pid_t last_child_pid)
+{
+	int	child_status;
+
+	waitpid(last_child_pid, &child_status, 0); // bash ne retourne que la derniere erreur
+	child_status = wexitstatus(child_status);
+	return (child_status);
+}
+
 int	evaluator(t_pipe *pipex, t_cmd *cmd, char **envp, int nb_of_cmds)
 {
 	int		i;
-	int		child_status;
 	pid_t	pid[nb_of_cmds];
 
 	i = -1;
@@ -178,7 +190,5 @@ int	evaluator(t_pipe *pipex, t_cmd *cmd, char **envp, int nb_of_cmds)
 		}
 		cmd = cmd->next;
 	}
-	waitpid(pid[i - 1], &child_status, 0); // bash ne retourne que la derniere erreur
-	child_status = wexitstatus(child_status);
-	return (child_status);
+	return (last_child_status(pid[i - 1]));
 }

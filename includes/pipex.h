@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:16:16 by user42            #+#    #+#             */
-/*   Updated: 2021/08/10 12:23:13 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/10 19:18:34 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,18 @@ enum	e_file
 	IS_VALID,
 	IS_NOT_VALID,
 	EXISTENT,
-	NONEXISTENT,
+	NONEXISTENT = -1,
 };
 
 enum	e_error
 {
-	CMD_NOT_FOUND = 127,
 	FAILED = -1,
+	CMD_NOT_FOUND = 127,
 };
 
 typedef struct	s_pipe
 {
+	int	fd; // a del
 	t_list			*path;
 	struct s_token	**token;
 	struct s_cmd	*cmds;
@@ -74,6 +75,7 @@ typedef struct	s_redir
 {
 	int				into_file;
 	int				into_stdin;
+	int				from_heredoc;
 	char			*from_file;
 }				t_redir;
 

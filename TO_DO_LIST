@@ -1,0 +1,9 @@
+heredoc = gestion des variables env ?
+ctrl + d dans heredocretour d'erreur d'un dossier en ergument
+relative path -> checker qu'il existe un '/' dans cmd
+
+< in ./mabite.sh | cat out
+ficheir doit s'executer avec sh
+MAIS
+< in mabite.sh | cat out
+mabite.sh doit etre cherche comme un programme

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 18:20:37 by user42            #+#    #+#             */
-/*   Updated: 2021/07/26 17:46:15 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/10 14:15:23 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,4 @@ void	tokenizer(t_pipe *pipex, char **argv, int parse)
 		store_mandatory_tokens(pipex, argv, nb_of_cmd);
 	else if (parse == BONUS)
 		store_bonus_tokens(pipex, argv, nb_of_cmd);
-
-	// print_token_tab(pipex->token);
 }

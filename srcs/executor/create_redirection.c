@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 17:13:22 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/10 12:02:22 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/10 14:05:54 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,29 +60,21 @@ void	search_for_output_redir(t_token *token_list, t_cmd *cmd)
 		cmd->redir.into_stdin = EXISTENT;
 }
 
-void	search_for_input_redir(t_token *token_list, t_cmd *cmd)
-{
-	if (token_list->type == HEREDOC)
-		cmd->redir.from_file = "heredoc";
-}
-
 void	create_redirection(t_pipe *pipex, t_cmd *cmd, t_token *token_list)
 {
-	int		status;
+	int		redir_status;
 	char	*file_name;
 
-	(void)pipex;
-	status = IS_VALID;
+	redir_status = IS_VALID;
 	while (token_list)
 	{
-		search_for_input_redir(token_list, cmd);
 		search_for_output_redir(token_list, cmd);
 		file_name = token_list->word;
 		if (token_list->type == IS_FILE && token_list->redir == INPUT_REDIR)
-			status = check_for_existing_file(cmd, file_name);
+			redir_status = check_for_existing_file(cmd, file_name);
 		else if (token_list->type == IS_FILE)
-			status = create_file(cmd, file_name, token_list->redir);
-		if (status >= IS_NOT_VALID)
+			redir_status = create_file(cmd, file_name, token_list->redir);
+		if (redir_status >= IS_NOT_VALID)
 			error_quit(pipex, file_name, 0);
 		token_list = token_list->next;
 	}
