@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:02:57 by user42            #+#    #+#             */
-/*   Updated: 2021/07/28 14:21:30 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/14 20:30:08 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	free_cmd_list(t_cmd **lst)
 		(*lst) = NULL;
 		*lst = tmp;
 	}
-	*lst = NULL;	
+	*lst = NULL;
 }
 
 void	free_token_list(t_token **lst)

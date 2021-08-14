@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path_is_unset.c                                    :+:      :+:    :+:   */
+/*   create_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/14 17:57:19 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/14 20:28:26 by llecoq           ###   ########.fr       */
+/*   Created: 2021/08/14 20:07:22 by llecoq            #+#    #+#             */
+/*   Updated: 2021/08/14 20:18:40 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/pipex.h"
 
-int	path_is_unset(t_pipe *pipex, t_list **path_list)
+void	create_pipe(t_pipe *pipex, t_cmd *cmd)
 {
-	(*path_list) = pipex->path;
-	if ((*path_list) == NULL)
+	if (pipe(cmd->pipefd) == FAILED)
 	{
-		errno = ENOENT;
-		return (1);
+		if (cmd->previous)
+		{
+			close(cmd->previous->pipefd[0]);
+			close(cmd->previous->pipefd[1]);
+		}
+		error_quit(pipex, NULL, 0);
 	}
-	return (0);
 }

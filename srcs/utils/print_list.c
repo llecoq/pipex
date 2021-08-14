@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:10:43 by user42            #+#    #+#             */
-/*   Updated: 2021/07/28 11:09:23 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/14 20:36:38 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	print_token_list(t_token *list)
 	{
 		write(1, (char *)list->word, ft_strlen((char *)list->word));
 		write(1, "\n", 1);
-		dprintf(1, "type = %d  redir = %d\n", list->type, list->redir);
 		list = list->next;
 	}
 }
@@ -64,8 +63,6 @@ void	print_cmds_list(t_cmd *cmds)
 	{
 		if (cmds->argv)
 			print_str_tab(cmds->argv);
-		// dprintf(1, "%p\n", cmds->pipefd);
 		cmds = cmds->next;
 	}
 }
-

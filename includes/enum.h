@@ -1,24 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path_is_unset.c                                    :+:      :+:    :+:   */
+/*   enum.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/14 17:57:19 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/14 20:28:26 by llecoq           ###   ########.fr       */
+/*   Created: 2021/08/14 20:24:00 by llecoq            #+#    #+#             */
+/*   Updated: 2021/08/14 20:24:33 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/pipex.h"
-
-int	path_is_unset(t_pipe *pipex, t_list **path_list)
+enum	e_process
 {
-	(*path_list) = pipex->path;
-	if ((*path_list) == NULL)
-	{
-		errno = ENOENT;
-		return (1);
-	}
-	return (0);
-}
+	CHILD_PROCESS,
+	PARENT_PROCESS,
+};
+
+enum	e_token
+{
+	IS_CMD,
+	IS_FILE,
+	PIPE,
+	APPEND,
+	HEREDOC,
+	STOP_VALUE,
+	INPUT_REDIR,
+	OUTPUT_REDIR,
+};
+
+enum	e_redir
+{
+	FROM_FILE,
+	FROM_STDIN,
+	FROM_HEREDOC,
+};
+
+enum	e_parse
+{
+	BONUS,
+	MANDATORY,
+};
+
+enum	e_file
+{
+	IS_VALID,
+	IS_NOT_VALID,
+	EXISTENT,
+	NONEXISTENT = -1,
+};
+
+enum	e_error
+{
+	FAILED = -1,
+	CMD_NOT_FOUND = 127,
+};

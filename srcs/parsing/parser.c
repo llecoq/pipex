@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:02:19 by user42            #+#    #+#             */
-/*   Updated: 2021/08/14 18:49:25 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/14 20:28:58 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ void	init_cmd(t_cmd *cmd)
 void	prompt(t_pipe *pipex, char *stop_value, int fd)
 {
 	char	*input;
-	
+
 	(void)pipex;
-	(void)fd;
 	write(STDOUT_FILENO, "> ", 2);
 	while (get_next_line(STDIN_FILENO, &input) > 0)
 	{
@@ -43,7 +42,6 @@ void	prompt(t_pipe *pipex, char *stop_value, int fd)
 	free(input);
 }
 
-// bash creer un tmp file mais pipe plus propre je pense
 void	create_heredoc(t_pipe *pipex, t_cmd *cmd, char *stop_value)
 {
 	int		pipefd[2];

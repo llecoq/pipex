@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:04:08 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/14 19:25:50 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/14 20:36:44 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	execute_file(t_list **path_list, char **argv, char **envp)
 {
 	char	*file;
-	
+
 	file = ft_strjoin((*path_list)->content, *argv);
 	execve(file, argv, envp);
 	free (file);
@@ -27,7 +27,6 @@ static void	execution_child_process(t_pipe *pipex, t_cmd *cmd, char **envp)
 	char	**argv;
 	t_list	*path_list;
 
-	// close_unused_fds(cmd);
 	create_redirection(pipex, cmd, cmd->token_list);
 	dup_input_redirection(pipex, cmd);
 	dup_output_redirection(pipex, cmd);
@@ -38,28 +37,6 @@ static void	execution_child_process(t_pipe *pipex, t_cmd *cmd, char **envp)
 	while (path_list != NULL)
 		execute_file(&path_list, argv, envp);
 	error_quit(pipex, *argv, CMD_NOT_FOUND);
-}
-
-static void	close_all_pipes(t_cmd *cmd)
-{
-	t_cmd	*previous_cmd;
-
-	previous_cmd = cmd->previous;
-	while (previous_cmd)
-	{
-		close(previous_cmd->pipefd[0]);
-		close(previous_cmd->pipefd[1]);
-		previous_cmd = previous_cmd->previous;
-	}
-}
-
-static void	create_pipe(t_pipe *pipex, t_cmd *cmd)
-{
-	if (pipe(cmd->pipefd) == FAILED)
-	{
-		close_all_pipes(cmd);
-		error_quit(pipex, NULL, 0);
-	}
 }
 
 int	evaluator(t_pipe *pipex, t_cmd *cmd, char **envp, int nb_of_cmds)

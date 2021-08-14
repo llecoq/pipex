@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 17:49:05 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/14 19:15:36 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/14 20:18:23 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,39 +24,41 @@ static void	close_fds_and_exit(t_pipe *pipex, int fd_1, int fd_2)
 void	dup_output_redirection(t_pipe *pipex, t_cmd *cmd)
 {
 	if (cmd->redir.into_stdin == EXISTENT)
-		dup2(cmd->pipefd[1], STDOUT_FILENO);
+		if (dup2(cmd->pipefd[1], STDOUT_FILENO) == FAILED)
+			close_fds_and_exit(pipex, cmd->pipefd[1], -1);
 	if (cmd->redir.into_file >= EXISTENT)
 		if (dup2(cmd->redir.into_file, STDOUT_FILENO) == FAILED)
 			close_fds_and_exit(pipex, cmd->pipefd[1], -1);
 	close(cmd->pipefd[1]);
 }
 
+static void	redir_input(t_pipe *pipex, t_cmd *cmd, int redir_type)
+{
+	int	fd;
+
+	fd = -1;
+	if (redir_type == FROM_HEREDOC)
+		fd = cmd->redir.from_heredoc;
+	else if (redir_type == FROM_FILE)
+		fd = cmd->redir.from_file;
+	else if (redir_type == FROM_STDIN)
+		fd = cmd->previous->pipefd[0];
+	if (dup2(fd, STDIN_FILENO) == FAILED)
+	{
+		close(cmd->pipefd[0]);
+		close(cmd->pipefd[1]);
+		error_quit(pipex, NULL, 0);
+	}
+	close(fd);
+	close(cmd->pipefd[0]);
+}
+
 void	dup_input_redirection(t_pipe *pipex, t_cmd *cmd)
 {
 	if (cmd->redir.from_heredoc >= EXISTENT)
-	{
-		dup2(cmd->redir.from_heredoc, STDIN_FILENO);
-		close(cmd->redir.from_heredoc);
-		close(cmd->pipefd[0]);
-		return ;
-	}
+		redir_input(pipex, cmd, FROM_HEREDOC);
 	if (cmd->redir.from_file >= EXISTENT)
-	{
-		dup2(cmd->redir.from_file, STDIN_FILENO);
-		close(cmd->redir.from_file);
-		close(cmd->pipefd[0]);
-		return ;
-	}
+		redir_input(pipex, cmd, FROM_FILE);
 	if (cmd->previous)
-	{
-		if (dup2(cmd->previous->pipefd[0], STDIN_FILENO) == FAILED)
-		{
-			close(cmd->pipefd[0]);
-			close(cmd->pipefd[1]);
-			error_quit(pipex, NULL, 0);
-		}
-		close(cmd->previous->pipefd[0]);
-	}
-	else if (cmd->previous == NULL)
-		close(cmd->pipefd[0]);
+		redir_input(pipex, cmd, FROM_STDIN);
 }
