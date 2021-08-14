@@ -6,13 +6,18 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/08 12:13:07 by user42            #+#    #+#              #
-#    Updated: 2021/08/10 11:06:46 by llecoq           ###   ########.fr        #
+#    Updated: 2021/08/14 18:25:02 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS_FILES	=	main.c\
 				executor/executor.c\
 				executor/create_redirection.c\
+				executor/dup_redirections.c\
+				executor_utils/close_fds.c\
+				executor_utils/create_argv.c\
+				executor_utils/exit_status.c\
+				executor_utils/path_is_unset.c\
 				tokenizer/store_token_list.c\
 				tokenizer/tokenizer.c\
 				tokenizer/store_tokens.c\
@@ -48,6 +53,7 @@ DIR		=	.objs/parsing\
 			.objs/tokenizer\
 			.objs/utils\
 			.objs/executor\
+			.objs/executor_utils\
 
 $(OBJSPATH)%.o:		$(SRCSPATH)%.c includes/pipex.h libft/libft.h libft/libft.a
 			@mkdir -p $(OBJ_PATH) $(DIR)

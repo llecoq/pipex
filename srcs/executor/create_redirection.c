@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 17:13:22 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/10 14:05:54 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/14 17:57:47 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ int	check_for_existing_file(t_cmd *cmd, char *file_name)
 			close(fd);
 			return (errno);
 		}
-		close(fd);
-		cmd->redir.from_file = file_name; // ne marche pas pour heredoc
+		cmd->redir.from_file = fd;
 		return (IS_VALID);
 	}
 	return (errno);

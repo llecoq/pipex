@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:02:19 by user42            #+#    #+#             */
-/*   Updated: 2021/08/11 11:46:01 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/14 18:30:57 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	create_pipes(t_pipe *pipex, t_cmd *cmd)
 		cmd->redir.from_heredoc = NONEXISTENT;
 		cmd->redir.into_file = NONEXISTENT;
 		cmd->redir.into_stdin = NONEXISTENT;
-		cmd->redir.from_file = NULL;
+		cmd->redir.from_file = NONEXISTENT;
 		cmd = cmd->next;
 	}
 }
