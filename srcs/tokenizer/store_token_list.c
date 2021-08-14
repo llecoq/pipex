@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 14:42:31 by user42            #+#    #+#             */
-/*   Updated: 2021/07/27 11:20:33 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/11 11:35:31 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,10 @@ t_token	*new_token(char **content, int type, int redir)
 
 void	addback_token(t_token **list, t_token *new)
 {
-	t_token	*previous;
-
 	if (*list)
 	{
-		previous = last_token(*list);
+		(*list) = last_token(*list);
+		new->previous = (*list);
 		(*list)->next = new;
 	}
 	else

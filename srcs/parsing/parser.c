@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:02:19 by user42            #+#    #+#             */
-/*   Updated: 2021/08/10 19:37:31 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/11 11:46:01 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	create_heredoc(t_pipe *pipex, t_cmd *cmd, char *stop_value)
 		error_quit(pipex, NULL, 0);
 	cmd->redir.from_heredoc = pipefd[1];
 	prompt(pipex, stop_value, cmd->redir.from_heredoc);
-	cmd->redir.from_heredoc = pipefd[0];
 	close(pipefd[1]);
+	cmd->redir.from_heredoc = pipefd[0];
 }
 
 void	parse(t_pipe *pipex, char **argv, int argc)
@@ -90,6 +90,4 @@ LIMITER cmd cmd1 file", -1);
 	create_pipes(pipex, pipex->cmds);
 	if (parse == BONUS)
 		create_heredoc(pipex, pipex->cmds, pipex->token[0]->word);
-	
-	pipex->fd = open("file", O_CREAT | O_RDWR | O_APPEND, 0644);
 }

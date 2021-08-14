@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:16:16 by user42            #+#    #+#             */
-/*   Updated: 2021/08/10 19:18:34 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/11 11:31:12 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ enum	e_error
 
 typedef struct	s_pipe
 {
-	int	fd; // a del
 	t_list			*path;
 	struct s_token	**token;
 	struct s_cmd	*cmds;
