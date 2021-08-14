@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 17:49:05 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/14 17:51:19 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/14 19:15:36 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,8 @@ static void	close_fds_and_exit(t_pipe *pipex, int fd_1, int fd_2)
 void	dup_output_redirection(t_pipe *pipex, t_cmd *cmd)
 {
 	if (cmd->redir.into_stdin == EXISTENT)
-	{
-		close(cmd->next->pipefd[0]);
-		if (dup2(cmd->next->pipefd[1], STDOUT_FILENO) == FAILED)
-			close_fds_and_exit(pipex, cmd->pipefd[1], cmd->next->pipefd[1]);
-		close(cmd->next->pipefd[1]);
-	}
-	else if (cmd->redir.into_file >= EXISTENT)
+		dup2(cmd->pipefd[1], STDOUT_FILENO);
+	if (cmd->redir.into_file >= EXISTENT)
 		if (dup2(cmd->redir.into_file, STDOUT_FILENO) == FAILED)
 			close_fds_and_exit(pipex, cmd->pipefd[1], -1);
 	close(cmd->pipefd[1]);
@@ -52,16 +47,16 @@ void	dup_input_redirection(t_pipe *pipex, t_cmd *cmd)
 		close(cmd->pipefd[0]);
 		return ;
 	}
-	if (dup2(cmd->pipefd[0], STDIN_FILENO) == FAILED)
+	if (cmd->previous)
 	{
-		close(cmd->pipefd[0]);
-		close(cmd->pipefd[1]);
-		if (cmd->next)
+		if (dup2(cmd->previous->pipefd[0], STDIN_FILENO) == FAILED)
 		{
-			close(cmd->next->pipefd[0]);
-			close(cmd->next->pipefd[1]);
+			close(cmd->pipefd[0]);
+			close(cmd->pipefd[1]);
+			error_quit(pipex, NULL, 0);
 		}
-		error_quit(pipex, NULL, 0);
+		close(cmd->previous->pipefd[0]);
 	}
-	close(cmd->pipefd[0]);
+	else if (cmd->previous == NULL)
+		close(cmd->pipefd[0]);
 }

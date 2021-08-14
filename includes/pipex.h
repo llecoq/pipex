@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:16:16 by user42            #+#    #+#             */
-/*   Updated: 2021/08/14 17:59:31 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/14 18:49:36 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ void	store_path(t_pipe *pipex);
 void	split_words(t_pipe *pipex, char *argv, char ***splitted_words);
 void	split_and_store_args(char **argv);
 void	create_empty_cmds_list(t_pipe *pipex, int nb_of_cmds);
-void	create_pipe(t_pipe *pipex, t_cmd *cmds);
 
 /* UTILS */
 void	clear_memory(t_pipe *pipex);
