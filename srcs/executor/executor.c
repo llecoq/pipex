@@ -6,29 +6,42 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:04:08 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/15 12:23:14 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/15 13:28:58 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/pipex.h"
+
+int	argument_is_a_script(char **argv, char **tmp, char **file)
+{
+	if (ft_strncmp(argv[0], "./", 2) == 0)
+	{
+		*file = "/bin/sh";
+		*tmp = ft_strjoin("sh ", argv[0]);
+		free_split(argv);
+		return (1);
+	}
+	return (0);
+}
 
 static void	execute_file(t_list **path_list, char **argv, char **envp)
 {
 	char	*file;
 	char	*tmp;
 
-	if (ft_strncmp(argv[0], "./", 2) == 0)
+	file = NULL;
+	if (argument_is_a_script(argv, &tmp, &file))
 	{
-		file = "/bin/sh";
-		tmp = ft_strjoin("sh ", argv[0]);
-		free_split(argv);
 		argv = ft_split(tmp, ' ');
 		free(tmp);
 	}
-	else
+	else if (*argv[0] != '/')
 		file = ft_strjoin((*path_list)->content, *argv);
+	else
+		file = *argv;
 	execve(file, argv, envp);
-	free (file);
+	if (file)
+		free (file);
 	(*path_list) = (*path_list)->next;
 }
 
@@ -52,7 +65,7 @@ static void	execution_child_process(t_pipe *pipex, t_cmd *cmd, char **envp)
 int	evaluator(t_pipe *pipex, t_cmd *cmd, char **envp, int nb_of_cmds)
 {
 	int		i;
-	pid_t	pid[nb_of_cmds];
+	pid_t	pid[1024];
 
 	i = -1;
 	while (++i < nb_of_cmds)
