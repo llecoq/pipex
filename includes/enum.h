@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 20:24:00 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/15 12:25:42 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/15 16:16:22 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ enum	e_token
 {
 	IS_CMD,
 	IS_FILE,
+	IS_PATH,
 	PIPE,
 	APPEND,
 	HEREDOC,

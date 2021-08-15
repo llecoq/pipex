@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:16:16 by user42            #+#    #+#             */
-/*   Updated: 2021/08/15 11:11:15 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/15 16:49:21 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,6 @@ typedef struct s_pipe
 	int				cmds_nb;
 }				t_pipe;
 
-typedef struct s_redir
-{
-	int				into_file;
-	int				into_stdin;
-	int				from_heredoc;
-	int				from_file;
-}				t_redir;
-
 typedef struct s_cmd
 {
 	char			**argv;
@@ -53,6 +45,14 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }				t_cmd;
 
+typedef struct s_redir
+{
+	int				into_file;
+	int				into_stdin;
+	int				from_heredoc;
+	int				from_file;
+}				t_redir;
+
 typedef struct s_token
 {
 	char			*word;
@@ -61,6 +61,14 @@ typedef struct s_token
 	struct s_token	*next;
 	struct s_token	*previous;
 }				t_token;
+
+typedef struct s_file
+{
+	char			*file;
+	char			*tmp;
+	char			**argv;
+	int				arg_type;
+}				t_file;
 
 /* PARSING */
 void	parse(t_pipe *pipex, char **argv, int argc);
@@ -78,7 +86,7 @@ void	addback_token(t_token **list, t_token *new);
 t_token	*new_token(char **content, int type, int redir);
 
 /* EXECUTOR */
-int		evaluator(t_pipe *pipex, t_cmd *cmds, char **envp, int nb_of_cmds);
+int		evaluator(t_pipe *pipex, t_cmd *cmds, int nb_of_cmds);
 void	create_redirection(t_pipe *pipex, t_cmd *cmd, t_token *token_list);
 void	dup_input_redirection(t_pipe *pipex, t_cmd *cmd);
 void	dup_output_redirection(t_pipe *pipex, t_cmd *cmd);
@@ -86,9 +94,10 @@ void	dup_output_redirection(t_pipe *pipex, t_cmd *cmd);
 /* EXECUTOR UTILS*/
 int		last_child_status(pid_t last_child_pid);
 int		path_is_unset(t_pipe *pipex, t_list **path_list);
+int		path_is_not_absolute(char **argv, t_list **path_list);
 int		create_argv(t_token *token_list, char ***split_argv);
-void	close_unused_fds(t_cmd *cmd);
 void	create_pipe(t_pipe *pipex, t_cmd *cmd);
+void	build_file_path(t_list **path_list, t_file *file, char **argv);
 
 /* UTILS */
 void	clear_memory(t_pipe *pipex);

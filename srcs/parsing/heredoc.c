@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 10:40:21 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/15 12:04:34 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/15 15:03:01 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	prompt(t_pipe *pipex, char *stop_value, int fd)
 		ret = get_next_line(STDIN_FILENO, &input);
 		if (ret == -1)
 			error_quit(pipex, NULL, 0);
-		if (strncmp(input, stop_value, ft_strlen(stop_value) + 1) == 0)
+		if (ft_strncmp(input, stop_value, ft_strlen(stop_value) + 1) == 0)
 			return ;
 		if (*input)
 			write_into_fd(fd, input);
