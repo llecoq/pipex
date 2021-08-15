@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:16:16 by user42            #+#    #+#             */
-/*   Updated: 2021/08/15 17:09:34 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/15 17:40:30 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ void	print_cmds_list(t_cmd *cmds);
 void	print_token_list(t_token *list);
 void	print_token_tab(t_token **token_tab);
 void	error_quit(t_pipe *pipex, char *str, int errnum);
-void	error(t_pipe *pipex, char *str, int errnum);
 void	*ft_calloc_pipex(t_pipe *pipex, size_t count, size_t size);
 
 #endif

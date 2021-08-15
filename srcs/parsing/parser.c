@@ -6,13 +6,13 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:02:19 by user42            #+#    #+#             */
-/*   Updated: 2021/08/15 17:18:45 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/15 17:40:52 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/pipex.h"
 
-void	init_cmd(t_cmd *cmd)
+static void	init_cmd(t_cmd *cmd)
 {
 	while (cmd)
 	{

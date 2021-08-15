@@ -6,13 +6,13 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 18:20:37 by user42            #+#    #+#             */
-/*   Updated: 2021/08/15 10:49:47 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/15 17:41:17 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/pipex.h"
 
-int	count_number_of_commands(char **argv, int parse)
+static int	count_number_of_commands(char **argv, int parse)
 {
 	int	nb_of_cmds;
 

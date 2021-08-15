@@ -6,13 +6,13 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:02:57 by user42            #+#    #+#             */
-/*   Updated: 2021/08/14 20:30:08 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/15 17:46:56 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/pipex.h"
 
-void	free_cmd_list(t_cmd **lst)
+static void	free_cmd_list(t_cmd **lst)
 {
 	t_cmd		*tmp;
 
@@ -29,7 +29,7 @@ void	free_cmd_list(t_cmd **lst)
 	*lst = NULL;
 }
 
-void	free_token_list(t_token **lst)
+static void	free_token_list(t_token **lst)
 {
 	t_token		*tmp;
 
@@ -46,7 +46,7 @@ void	free_token_list(t_token **lst)
 	*lst = NULL;
 }
 
-void	free_token_tab(t_pipe *pipex)
+static void	free_token_tab(t_pipe *pipex)
 {
 	int	i;
 

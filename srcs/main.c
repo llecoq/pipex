@@ -6,13 +6,13 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:15:32 by user42            #+#    #+#             */
-/*   Updated: 2021/08/15 17:14:08 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/15 17:39:40 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	init_pipex(t_pipe *pipex, char **envp)
+static void	init_pipex(t_pipe *pipex, char **envp)
 {
 	pipex->path = NULL;
 	pipex->token = NULL;

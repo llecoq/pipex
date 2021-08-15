@@ -6,13 +6,13 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:42:08 by llecoq            #+#    #+#             */
-/*   Updated: 2021/07/27 16:50:50 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/15 17:39:12 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/pipex.h"
 
-t_cmd	*last_cmd(t_cmd *lst)
+static t_cmd	*last_cmd(t_cmd *lst)
 {
 	if (lst)
 		while (lst->next)
@@ -20,7 +20,7 @@ t_cmd	*last_cmd(t_cmd *lst)
 	return (lst);
 }
 
-t_cmd	*new_cmd(t_pipe *pipex)
+static t_cmd	*new_cmd(t_pipe *pipex)
 {
 	t_cmd	*new_elem;
 
@@ -34,7 +34,7 @@ t_cmd	*new_cmd(t_pipe *pipex)
 	return (new_elem);
 }
 
-void	addback_cmd(t_cmd **list, t_cmd *new)
+static void	addback_cmd(t_cmd **list, t_cmd *new)
 {
 	t_cmd	*last_elem;
 

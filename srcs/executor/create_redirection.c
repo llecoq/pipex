@@ -6,13 +6,13 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 17:13:22 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/14 17:57:47 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/15 17:42:38 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/pipex.h"
 
-int	create_file(t_cmd *cmd, char *file_name, int redir_type)
+static int	create_file(t_cmd *cmd, char *file_name, int redir_type)
 {
 	if (redir_type == APPEND)
 		cmd->redir.into_file
@@ -30,7 +30,7 @@ int	create_file(t_cmd *cmd, char *file_name, int redir_type)
 	return (IS_VALID);
 }
 
-int	check_for_existing_file(t_cmd *cmd, char *file_name)
+static int	check_for_existing_file(t_cmd *cmd, char *file_name)
 {
 	char	buff;
 	int		fd;
@@ -51,7 +51,7 @@ int	check_for_existing_file(t_cmd *cmd, char *file_name)
 	return (errno);
 }
 
-void	search_for_output_redir(t_token *token_list, t_cmd *cmd)
+static void	search_for_output_redir(t_token *token_list, t_cmd *cmd)
 {
 	if (token_list->redir == APPEND || token_list->redir == OUTPUT_REDIR)
 		cmd->redir.into_file = EXISTENT;

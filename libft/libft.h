@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 15:19:21 by abonnel           #+#    #+#             */
-/*   Updated: 2021/07/26 13:33:33 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/15 17:37:26 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 int				hexa_len(unsigned long long nb);
 char			*ft_itoabase(unsigned long long nb, char *base);
 void			free_split(char **split);
-// void			free_set_null(void **ptr);
 int				ft_malloc(void *ptr, int size);
 
 #endif

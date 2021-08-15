@@ -6,13 +6,13 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 17:46:08 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/14 20:26:59 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/15 17:44:06 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/pipex.h"
 
-int	wexitstatus(int status)
+static int	wexitstatus(int status)
 {
 	int	w_int;
 
