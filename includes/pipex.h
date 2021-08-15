@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:16:16 by user42            #+#    #+#             */
-/*   Updated: 2021/08/15 16:49:21 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/15 17:09:34 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,14 @@ typedef struct s_pipe
 	int				cmds_nb;
 }				t_pipe;
 
+typedef struct s_redir
+{
+	int				into_file;
+	int				into_stdin;
+	int				from_heredoc;
+	int				from_file;
+}				t_redir;
+
 typedef struct s_cmd
 {
 	char			**argv;
@@ -44,14 +52,6 @@ typedef struct s_cmd
 	struct s_cmd	*previous;
 	struct s_cmd	*next;
 }				t_cmd;
-
-typedef struct s_redir
-{
-	int				into_file;
-	int				into_stdin;
-	int				from_heredoc;
-	int				from_file;
-}				t_redir;
 
 typedef struct s_token
 {
