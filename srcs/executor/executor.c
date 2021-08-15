@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 15:04:08 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/14 20:36:44 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/15 12:23:14 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,18 @@
 static void	execute_file(t_list **path_list, char **argv, char **envp)
 {
 	char	*file;
+	char	*tmp;
 
-	file = ft_strjoin((*path_list)->content, *argv);
+	if (ft_strncmp(argv[0], "./", 2) == 0)
+	{
+		file = "/bin/sh";
+		tmp = ft_strjoin("sh ", argv[0]);
+		free_split(argv);
+		argv = ft_split(tmp, ' ');
+		free(tmp);
+	}
+	else
+		file = ft_strjoin((*path_list)->content, *argv);
 	execve(file, argv, envp);
 	free (file);
 	(*path_list) = (*path_list)->next;

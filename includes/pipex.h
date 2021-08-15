@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:16:16 by user42            #+#    #+#             */
-/*   Updated: 2021/08/14 20:25:25 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/15 11:11:15 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include "../libft/libft.h"
+# include "../libft/gnl/get_next_line.h"
 # include "enum.h"
 
 typedef struct s_pipe
@@ -30,6 +31,7 @@ typedef struct s_pipe
 	t_list			*path;
 	struct s_token	**token;
 	struct s_cmd	*cmds;
+	char			**envp;
 	int				cmds_nb;
 }				t_pipe;
 
@@ -66,6 +68,7 @@ void	store_path(t_pipe *pipex);
 void	split_words(t_pipe *pipex, char *argv, char ***splitted_words);
 void	split_and_store_args(char **argv);
 void	create_empty_cmds_list(t_pipe *pipex, int nb_of_cmds);
+void	create_heredoc(t_pipe *pipex, t_cmd *cmd, char *stop_value);
 
 /* TOKENIZER */
 void	store_mandatory_tokens(t_pipe *pipex, char **argv, int cmd_nb);

@@ -6,7 +6,7 @@
 #    By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/08 12:13:07 by user42            #+#    #+#              #
-#    Updated: 2021/08/14 20:17:17 by llecoq           ###   ########.fr        #
+#    Updated: 2021/08/15 10:41:11 by llecoq           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS_FILES	=	main.c\
 				tokenizer/tokenizer.c\
 				tokenizer/store_tokens.c\
 				parsing/parser.c\
+				parsing/heredoc.c\
 				parsing/store_path.c\
 				parsing/split_words_bonus.c\
 				parsing/store_cmds.c\
@@ -48,7 +49,7 @@ CC		= gcc
 
 RM		= rm -rf
 
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g3 -fsanitize=address
 
 DIR		=	.objs/parsing\
 			.objs/tokenizer\

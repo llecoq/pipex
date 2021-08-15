@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:02:19 by user42            #+#    #+#             */
-/*   Updated: 2021/08/14 20:28:58 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/15 12:06:05 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,36 +22,6 @@ void	init_cmd(t_cmd *cmd)
 		cmd->redir.from_file = NONEXISTENT;
 		cmd = cmd->next;
 	}
-}
-
-void	prompt(t_pipe *pipex, char *stop_value, int fd)
-{
-	char	*input;
-
-	(void)pipex;
-	write(STDOUT_FILENO, "> ", 2);
-	while (get_next_line(STDIN_FILENO, &input) > 0)
-	{
-		if (strncmp(input, stop_value, ft_strlen(stop_value) + 1) == 0)
-			return ;
-		write(STDOUT_FILENO, "> ", 2);
-		write(fd, input, ft_strlen(input));
-		write(fd, "\n", 1);
-		free(input);
-	}
-	free(input);
-}
-
-void	create_heredoc(t_pipe *pipex, t_cmd *cmd, char *stop_value)
-{
-	int		pipefd[2];
-
-	if (pipe(pipefd) == FAILED)
-		error_quit(pipex, NULL, 0);
-	cmd->redir.from_heredoc = pipefd[1];
-	prompt(pipex, stop_value, cmd->redir.from_heredoc);
-	close(pipefd[1]);
-	cmd->redir.from_heredoc = pipefd[0];
 }
 
 void	parse(t_pipe *pipex, char **argv, int argc)
