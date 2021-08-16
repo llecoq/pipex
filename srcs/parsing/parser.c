@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:02:19 by user42            #+#    #+#             */
-/*   Updated: 2021/08/15 17:40:52 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/16 10:26:51 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ void	parse(t_pipe *pipex, char **argv, int argc)
 	if (parse == BONUS && argc <= 5)
 		error_quit(pipex, "not enough arguments\nusage : ./pipex here_doc \
 LIMITER cmd cmd1 file", -1);
+	else if (parse == MANDATORY && argc < 5)
+		error_quit(pipex, "not enough arguments\nusage :  ./pipex file1 \
+cmd1 cmd2 cmd3 ... cmdn file2", -1);
 	store_path(pipex);
 	tokenizer(pipex, argv, parse);
 	create_empty_cmds_list(pipex, pipex->cmds_nb);

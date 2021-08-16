@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:16:16 by user42            #+#    #+#             */
-/*   Updated: 2021/08/15 17:40:30 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/16 11:30:35 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ void	dup_output_redirection(t_pipe *pipex, t_cmd *cmd);
 int		last_child_status(pid_t last_child_pid);
 int		path_is_unset(t_pipe *pipex, t_list **path_list);
 int		path_is_not_absolute(char **argv, t_list **path_list);
-int		create_argv(t_token *token_list, char ***split_argv);
+int		create_argv(t_cmd *cmd, t_token *token_list, char ***split_argv);
 void	create_pipe(t_pipe *pipex, t_cmd *cmd);
-void	build_file_path(t_list **path_list, t_file *file, char **argv);
+void	build_file_path(t_list **path_list, t_file *file, char ***argv);
 
 /* UTILS */
 void	clear_memory(t_pipe *pipex);

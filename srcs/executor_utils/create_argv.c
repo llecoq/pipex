@@ -6,13 +6,13 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 17:59:03 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/15 12:05:56 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/16 11:04:10 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/pipex.h"
 
-int	create_argv(t_token *token_list, char ***split_argv)
+int	create_argv(t_cmd *cmd, t_token *token_list, char ***split_argv)
 {
 	char	*unsplit_arg;
 
@@ -22,6 +22,7 @@ int	create_argv(t_token *token_list, char ***split_argv)
 		{
 			unsplit_arg = token_list->word;
 			(*split_argv) = ft_split(unsplit_arg, ' ');
+			cmd->argv = (*split_argv);
 			return (0);
 		}
 		token_list = token_list->next;

@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 17:13:22 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/15 17:42:38 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/16 10:05:13 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,11 @@ static int	create_file(t_cmd *cmd, char *file_name, int redir_type)
 
 static int	check_for_existing_file(t_cmd *cmd, char *file_name)
 {
-	char	buff;
 	int		fd;
-	int		ret;
 
 	fd = open(file_name, O_RDONLY);
 	if (fd > 0)
 	{
-		ret = read(fd, &buff, 1);
-		if (ret == -1)
-		{
-			close(fd);
-			return (errno);
-		}
 		cmd->redir.from_file = fd;
 		return (IS_VALID);
 	}

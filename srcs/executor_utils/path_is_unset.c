@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 17:57:19 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/15 15:48:09 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/16 11:35:57 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	path_is_not_absolute(char **argv, t_list **path_list)
 {
-	if (*argv[0] == '/')
+	if (*argv[0] == '/' || ft_strncmp("./", *argv, 2) == 0)
 	{
 		ft_lstadd_back(path_list, ft_lstnew(NULL));
 		return (0);
