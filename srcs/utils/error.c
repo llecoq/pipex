@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 18:46:07 by user42            #+#    #+#             */
-/*   Updated: 2021/08/15 17:40:39 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/23 09:24:51 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	error_quit(t_pipe *pipex, char *str, int errnum)
 	full_error_msg = join_and_free(ft_strdup("pipex: "), str);
 	if (errnum != -1)
 		full_error_msg = join_and_free(full_error_msg, ": ");
-	if (errnum == 0)
+	if (errnum == SYSCALL_ERROR)
 		full_error_msg = join_and_free(full_error_msg, errno_msg);
 	if (errnum == CMD_NOT_FOUND)
 	{

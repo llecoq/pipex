@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 17:49:05 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/16 13:34:11 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/23 09:23:08 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	close_fds_and_exit(t_pipe *pipex, int fd_1, int fd_2)
 		close(fd_1);
 	if (fd_2 >= EXISTENT)
 		close(fd_2);
-	error_quit(pipex, NULL, 0);
+	error_quit(pipex, NULL, SYSCALL_ERROR);
 }
 
 void	dup_output_redirection(t_pipe *pipex, t_cmd *cmd)
@@ -47,7 +47,7 @@ static void	redir_input(t_pipe *pipex, t_cmd *cmd, int redir_type)
 	{
 		close(cmd->pipefd[0]);
 		close(cmd->pipefd[1]);
-		error_quit(pipex, NULL, 0);
+		error_quit(pipex, NULL, SYSCALL_ERROR);
 	}
 	close(fd);
 	close(cmd->pipefd[0]);

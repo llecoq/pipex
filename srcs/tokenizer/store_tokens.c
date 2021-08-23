@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 13:38:11 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/14 20:29:42 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/18 15:28:53 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	store_mandatory_tokens(t_pipe *pipex, char **argv, int cmd_nb)
 	while (++i < cmd_nb)
 		addback_token(&pipex->token[i], new_token(++argv, IS_CMD, PIPE));
 	addback_token(&pipex->token[cmd_nb], new_token(++argv, IS_CMD, \
-	OUTPUT_REDIR));
+	TRUNC));
 	addback_token(&pipex->token[cmd_nb], new_token(++argv, IS_FILE, \
-	OUTPUT_REDIR));
+	TRUNC));
 }

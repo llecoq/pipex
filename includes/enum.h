@@ -6,7 +6,7 @@
 /*   By: llecoq <llecoq@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 20:24:00 by llecoq            #+#    #+#             */
-/*   Updated: 2021/08/15 16:16:22 by llecoq           ###   ########.fr       */
+/*   Updated: 2021/08/23 09:22:33 by llecoq           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ enum	e_token
 	HEREDOC,
 	STOP_VALUE,
 	INPUT_REDIR,
-	OUTPUT_REDIR,
+	TRUNC,
 };
 
 enum	e_redir
@@ -57,6 +57,7 @@ enum	e_file
 enum	e_error
 {
 	FAILED = -1,
+	SYSCALL_ERROR = 0,
 	CMD_NOT_FOUND = 127,
 };
 
