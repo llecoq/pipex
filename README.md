@@ -28,6 +28,11 @@
 
 Pipex with full bonus
 
+usage :  
+```
+./pipex file1 cmd1 cmd2 cmd3 ... cmdn file2
+```
+
 ## What's included
 
 ```
