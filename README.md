@@ -10,6 +10,8 @@
     by using it in your program.
     <br>
     <br>
+    /!\ SUBJECT LINKED IS DIFFERENT THAN THE ONE USED FOR THIS PROGRAM /!\
+    <br>
     <a href="https://github.com/llecoq/pipex/blob/master/assets/en.subject.pdf">English Subject </a>
     |
     <a href="https://github.com/llecoq/pipex/blob/master/assets/fr.subject.pdf"> Sujet en Francais</a>
