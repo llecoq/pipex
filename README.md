@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://42lyon.fr/">
-    <img src="https://github.com/llecoq/pipex/blob/master/assets/final%20grade.png" alt="pipex" width=200 height=170>
+    <img src="./assets/final_grade.png" alt="pipex" width=200 height=170>
   </a>
 
   <h2 align="center">pipex</h2>
