@@ -30,7 +30,7 @@
 
 Pipex with full bonus
 
-usage :  
+usage :
 ```
 ./pipex file1 cmd1 cmd2 cmd3 ... cmdn file2
 ```
@@ -48,7 +48,7 @@ pipex
 │   ├── enum.h
 │   └── pipex.h
 ├── libft with gnl
-│   
+│
 └── srcs
     ├── executor
     │   ├── create_redirection.c
